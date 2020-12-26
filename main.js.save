@@ -1,0 +1,26 @@
+const util = require('util');
+const express = require('express')
+const app = express()
+const port = 3000
+
+
+const exec = util.promisify(require('child_process').exec);
+async function lsWithGrep() {
+  try {
+      const { stdout, stderr } = await exec('sudo lp -o fit-to-page /home/pi/Downloads/download.png');
+      console.log('stdout:', stdout);
+      console.log('stderr:', stderr);
+  }catch {
+     return ;
+  };
+};
+
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`)
+})
+
+//lsW
